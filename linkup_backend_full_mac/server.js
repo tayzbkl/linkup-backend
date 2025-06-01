@@ -10,6 +10,10 @@ app.get('/', (req, res) => {
     res.send('Link Up API is running!');
 });
 
-app.listen(PORT, () => {
+app.get('/api/test', (req, res) => {
+  res.json({ message: 'API test réussie depuis Railway 🚀' });
+});app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+
