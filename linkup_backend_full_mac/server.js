@@ -4,6 +4,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 require('dotenv').config();
 const mongoose = require('mongoose');
+const userRoutes = require('./routes/userRoutes');
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -20,20 +21,11 @@ app.get('/', (req, res) => {
 
 app.get('/api/test', (req, res) => {
   res.json({ message: 'API test réussie depuis Railway 🚀' });
-const User = require('./models/User');
 
-app.post('/api/users', async (req, res) => {
-  try {
-    const { name, email } = req.body;
-    const newUser = new User({ name, email });
-    const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
-  } catch (err) {
-    res.status(500).json({ error: 'Erreur lors de l\'enregistrement de l\'utilisateur' });
-  }
-});
+app.use('/api/users', userRoutes);
 });app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
 
 
